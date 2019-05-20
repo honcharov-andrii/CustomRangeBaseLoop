@@ -11,15 +11,16 @@ private:
     T* mArray;
     int mSize;
 
-    class CustomIterator: public std::iterator<std::input_iterator_tag, T>
+    template <typename X>
+    class CustomIterator: public std::iterator<std::input_iterator_tag, X>
     {
     private:
 
-        T* mPointer;
+        X* mPointer;
 
     public:
 
-        CustomIterator(T* p):
+        CustomIterator(X* p):
         mPointer(p)
         {}
 
@@ -43,7 +44,7 @@ private:
             return *this;
         }
 
-        T& operator*()
+        X& operator*()
         {
             return *mPointer;
         }
@@ -51,9 +52,11 @@ private:
 
 public:
 
-    typedef CustomIterator iterator;
+    typedef CustomIterator<T> iterator;
 
-    CustomContainer(int size = 10)
+    typedef CustomIterator<const T> const_iterator;
+
+    CustomContainer(size_t size = 10)
     {
         mArray = new T[size];
         mSize = size;
@@ -69,6 +72,11 @@ public:
         return mArray[i];
     }
 
+    T operator[] (size_t i) const
+    {
+        return mArray[i];
+    }
+
     iterator begin()
     {
         return iterator(mArray);
@@ -77,6 +85,16 @@ public:
     iterator end()
     {
         return iterator(mArray + mSize);
+    }
+
+    const_iterator begin() const
+    {
+        return const_iterator(mArray);
+    }
+
+    const_iterator end() const
+    {
+        return const_iterator(mArray + mSize);
     }
 };
 
