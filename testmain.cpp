@@ -15,11 +15,6 @@ TEST(FirstTestCase, TestSuccessResult)
     for(size_t i = 0; i < SIZE; ++i)
     {
         container[i] = i;
-    }
-
-    for(size_t i = 0; i < SIZE; ++i)
-    {
-        container[i] = i;
 
         ASSERT_EQ(i, container[i]);
     }
@@ -30,6 +25,9 @@ TEST(FirstTestCase, TestSuccessResult)
         ASSERT_EQ(it, container[count]);
         ++count;
     }
+
+    ASSERT_EQ(*container.begin(), container[0]);
+    ASSERT_EQ(*(--container.end()), container[SIZE - 1]);
 }
 
 
