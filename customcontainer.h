@@ -52,6 +52,20 @@ private:
             return temp;
         }
 
+        CustomIterator& operator--()
+        {
+            --mPointer;
+            return *this;
+        }
+
+        CustomIterator operator--(int)
+        {
+            CustomIterator temp(mPointer);
+
+            --mPointer;
+            return temp;
+        }
+
         X& operator*()
         {
             return *mPointer;
